@@ -1,0 +1,6 @@
+# Python Poetry
+__pypackages__/
+.poetry/
+.pytest_cache/
+.vscode
+**/__pycache__

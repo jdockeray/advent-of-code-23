@@ -1,0 +1,6 @@
+[general]
+# Enable specific community contributed rules
+contrib=contrib-title-conventional-commits
+
+# Ignore built in defaults
+ignore=B6,body-is-missing
