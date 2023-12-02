@@ -25,3 +25,6 @@ It's important that you run pre-commit install --hook-type commit-msg, even if y
 
 ### Commits
 Commits should start with one of
+```
+fix, feat, chore, docs, style, refactor, perf, test
+```
