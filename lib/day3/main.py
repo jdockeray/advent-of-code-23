@@ -1,3 +1,8 @@
+"""day 3 of Advent of Code 2023.
+
+advent of code: https://adventofcode.com/2023/day/3
+"""
+
 import sys
 from lib.day3.utils import part_one, part_two
 
