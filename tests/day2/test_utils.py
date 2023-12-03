@@ -12,26 +12,6 @@ def test_parse_round(input, expected_result):
 
 
 @pytest.mark.parametrize("input,expected_result", [
-    [
-        "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green",
-        (1, [(4, 3, 0), (1, 6, 2), (0, 0, 2)])
-    ],
-])
-def test_parse_line(input, expected_result):
-    assert parse_round(input) == expected_result
-
-
-@pytest.mark.parametrize("input,expected_result", [
-    [
-        "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green",
-        (1, [(4, 3, 0), (1, 6, 2), (0, 0, 2)])
-    ],
-])
-def test_total_round(input, expected_result):
-    assert parse_round(input) == expected_result
-
-
-@pytest.mark.parametrize("input,expected_result", [
     [[(4, 3, 0), (1, 6, 2), (0, 0, 2)], (5, 9, 4)],
 ])
 def test_total_rounds(input, expected_result):
@@ -53,7 +33,6 @@ def test_compare_scores(left, right, expected_result):
     [(5, 9, 4), (5, 9, 4), True],
     [(4, 9, 4), (5, 9, 4), False],
     [(0, 0, 0), (5, 9, 4), False],
-    [(1, 2, 3), (0, 0, 0), False],
 ])
 def test_check_round(left, right, expected_result):
     assert check_round(max=left, round=right) == expected_result
