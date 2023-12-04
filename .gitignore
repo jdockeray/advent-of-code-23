@@ -4,3 +4,4 @@ __pypackages__/
 .pytest_cache/
 .vscode
 **/__pycache__
+**/input.txt
