@@ -6,7 +6,7 @@ poetry run python lib/day4/main.py data/day4/input.txt
 poetry run python lib/day4/main.py data/day4/input.test.txt
 ```
 
-# Notes on part 2 solution. 
+### Notes on part 2 solution. 
 
 The key to solving this problem is to keep track of the number of duplicates.
 
