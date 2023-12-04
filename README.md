@@ -34,3 +34,4 @@ fix, feat, chore, docs, style, refactor, perf, test
 1. Day 1 - `iterator`
 1. Day 2 - `tuples`, `collections`, `lamdas`
 1. Day 3 - `matrices`, `tuples`, `loops`
+1. Day 4 - `map`, `cache`
