@@ -15,23 +15,74 @@ def parse_seeds(lines: List[str]) -> List[int]:
     return [int(x) for x in lines[0].split(':')[1].strip().split(' ')]
 
 
-def parse_seeds_as_ranges(seeds: List[int]) -> List[int]:
-    many_seeds = []
+def parse_seeds_as_ranges(seeds: List[int]) -> List[range]:
+    ranges = []
     for i in range(0, len(seeds), 2):
-        many_seeds.extend(list(range(seeds[i], seeds[i] + seeds[i + 1])))
+        cr = range(seeds[i], seeds[i] + seeds[i + 1])
+        ranges.append(cr)
+    return ranges
 
-    return many_seeds
+
+def split_seed_range(
+        l: range, r: range,
+        steps: int) -> ((range, range, range), (range, range, range)):
+    """
+    Splits the seed ranges into processed and unprocessed ranges based on certain conditions.
+
+    Args:
+        l (range): The map range.
+        r (range): The seed range (the numbers being acted on)
+        steps (int): The number of steps to add to the processed ranges.
+
+    Returns:
+        tuple: (processed, unprocessed)
+    """
+    processed = (None, None, None)
+    unprocessed = (None, None, None)
+    if l.start < r.start and l.stop > r.stop:
+        processed = (None, range(r.start + steps, r.stop + steps), None)
+    elif l.stop <= r.start or l.start >= r.stop:
+        processed = (None, None, None)
+        unprocessed = (None, r, None)
+    elif l.start > r.start and l.stop < r.stop:
+        processed = (None, range(l.start + steps, l.stop + steps), None)
+        unprocessed = (range(r.start, l.start), None, range(l.stop, r.stop))
+    elif l.start == r.start and l.stop < r.stop:
+        processed = (range(l.start + steps, l.stop + steps), None, None)
+        unprocessed = (None, range(l.stop, r.stop), None)
+    elif l.start < r.start and l.stop == r.stop:
+        processed = (None, range(r.start + steps, r.stop + steps), None)
+    elif l.start < r.start and l.stop < r.stop:
+        processed = (None, range(r.start + steps, l.stop + steps), None)
+        unprocessed = (None, None, range(l.stop, r.stop))
+    elif l.start > r.start and l.stop > r.stop:
+        processed = (None, range(l.start + steps, r.stop + steps), None)
+        unprocessed = (range(r.start, l.start), None, None)
+    elif l.start > r.start and l.stop == r.stop:
+        processed = (None, range(l.start, r.stop), None)
+        unprocessed = (range(r.start, l.start), None, None)
+    elif l.start == r.start and l.stop == r.stop:
+        processed = (None, range(l.start + steps, r.stop + steps), None)
+        unprocessed = (None, None, None)
+    elif l.start == r.start and l.stop > r.stop:
+        processed = (None, range(r.start + steps, r.stop + steps), None)
+        unprocessed = (None, None, None)
+    return (processed, unprocessed)
 
 
 def parse_maps(lines: List[str]) -> (Dict[str, Dict[range, int]], List[int]):
     """
-    Parse the input file and return a dict of dicts.
+    Parses the given lines to create maps and keys.
 
     Args:
-        lines (List[str]): The lines of the input file.
+        lines (List[str]): The lines to parse.
 
     Returns:
-        Dict[str, Dict[range, int]]: A dict of dicts, where each dict represents a map.
+        Tuple[Dict[str, Dict[range, int]], List[int]]: A tuple containing the maps and keys.
+            - maps: A dictionary where the keys are strings and the values are dictionaries.
+                    Each inner dictionary represents a range of integers and its corresponding increment value.
+            - keys: A list of strings representing the keys.
+
     """
     maps = {}
     readingKey = False
@@ -79,6 +130,55 @@ def convert_seed_to_source(seed: int, maps: Dict[str, Dict[range, int]],
     return seed
 
 
+def convert_seeds_to_sources(seeds: List[range], maps: Dict[str, Dict[range,
+                                                                      int]],
+                             keys: List[str]) -> List[range]:
+    """
+    Convert the given seeds to sources based on the provided maps and keys.
+
+    Args:
+        seeds (List[range]): The initial seed ranges.
+        maps (Dict[str, Dict[range, int]]): The maps containing the range increments for each key.
+        keys (List[str]): The keys to process.
+
+    Returns:
+        List[range]: The processed ranges after conversion.
+
+    Raises:
+        Exception: If the output length does not match the input length.
+
+    """
+    processed = []
+    unprocessed = seeds
+    for k in keys:
+        m = maps[k]
+        available = unprocessed
+        processed = []
+        for check_r, incr in m.items():
+            next_available = []
+            for r in available:
+                in_len = len(r)
+                (p, u) = split_seed_range(l=check_r, r=r, steps=incr)
+                p = [x for x in p if x is not None]
+                u = [x for x in u if x is not None]
+                p_len = sum([len(x) for x in p])
+                u_len = sum([len(x) for x in u])
+                out_len = p_len + u_len
+                if out_len != in_len:
+                    raise Exception(
+                        f'Out length {out_len} does not match in length {in_len}'
+                    )
+
+                next_available.extend(u)
+                processed.extend(p)
+            available = next_available
+        unprocessed = processed
+        unprocessed.extend(available)
+
+    processed = [p for p in processed if p is not None]
+    return processed
+
+
 def part_one(path: str) -> int:
     """
     Solve part one of the puzzle.
@@ -99,4 +199,6 @@ def part_two(path: str) -> int:
     lines = parse_lines(path)
     seeds = parse_seeds_as_ranges(parse_seeds(lines))
     maps, keys = parse_maps(lines)
-    return min(map(lambda x: convert_seed_to_source(x, maps, keys), seeds))
+    sources = convert_seeds_to_sources(seeds, maps, keys)
+
+    return min(map(lambda x: x.start, sources))
