@@ -1,5 +1,5 @@
 import pytest
-from cal.day7.utils import Hand, compare_cards, compare_hands, get_type_of_hand, part_one, quick_sort_hands, split_lines
+from cal.day7.utils import Hand, compare_cards, compare_hands, get_type_of_hand, part_one, part_two, quick_sort_hands, split_lines
 
 
 def test_split_lines():
@@ -13,7 +13,10 @@ def test_split_lines():
                           ('23332', Hand.FULL_HOUSE),
                           ('TTT98', Hand.THREE_OF_A_KIND),
                           ('23432', Hand.TWO_PAIR), ('A23A4', Hand.ONE_PAIR),
-                          ('23456', Hand.HIGH_CARD)])
+                          ('23456', Hand.HIGH_CARD), ('2', Hand.HIGH_CARD),
+                          ('AAKK', Hand.TWO_PAIR), ('33', Hand.ONE_PAIR),
+                          ('KKK', Hand.THREE_OF_A_KIND),
+                          ('JJJJJ', Hand.FIVE_OF_A_KIND)])
 def test_get_type_of_hand(hand, expected_type):
     assert get_type_of_hand(hand) == expected_type
 
@@ -31,11 +34,18 @@ def test_compare_cards():
 
 
 def test_compare_hands():
-    assert compare_hands(['AAAAA', 1], ['KKKKK', 2])
-    assert compare_hands(['A3456', 1], ['K3456', 2])
-    assert compare_hands(['33456', 1], ['K3456', 2])
-    assert not compare_hands(['AAAA2', 1], ['AAAA3', 2])
+    assert not compare_hands(['AAAAA', 1], ['KKKKK', 2])
+    assert not compare_hands(['A3456', 1], ['K3456', 2])
+    assert not compare_hands(['33456', 1], ['K3456', 2])
+    assert compare_hands(['AAAA2', 1], ['AAAA3', 2])
 
 
 def test_part_one():
     assert part_one('data/day7/input.test.txt') == 6440
+
+
+def test_part_two():
+    assert part_two('data/day7/input.txt') == 6440
+
+
+# def test_get_type_of_hand_with_joker()
