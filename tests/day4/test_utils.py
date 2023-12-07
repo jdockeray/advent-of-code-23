@@ -1,5 +1,5 @@
 import pytest
-from lib.day4.utils import count_copies, count_winners, get_score, parse_card_number, parse_line, parse_results, part_one, parse_input
+from cal.day4.utils import count_copies, count_winners, get_score, parse_card_number, parse_line, parse_results, part_one, parse_input
 from unittest.mock import MagicMock
 
 

@@ -1,4 +1,4 @@
-from lib.day1.utils import convert, parse_input
+from cal.day1.utils import convert, parse_input
 
 
 def main():

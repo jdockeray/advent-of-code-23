@@ -1,5 +1,5 @@
 import pytest
-from lib.day3.utils import get_parts_and_gears, match_parts, part_two
+from cal.day3.utils import get_parts_and_gears, match_parts, part_two
 
 
 @pytest.mark.parametrize(

@@ -4,7 +4,7 @@ advent of code: https://adventofcode.com/2023/day/5
 """
 
 import sys
-from lib.day5.utils import part_one, part_two
+from cal.day5.utils import part_one, part_two
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

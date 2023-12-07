@@ -1,7 +1,7 @@
 import pytest
-from lib.day5.utils import convert_seed_to_source, convert_seeds_to_sources, parse_maps, parse_seeds, parse_seeds_as_ranges, part_one, part_two, split_seed_range
+from cal.day5.utils import convert_seed_to_source, convert_seeds_to_sources, parse_maps, parse_seeds, parse_seeds_as_ranges, part_one, part_two, split_seed_range
 
-from lib.day5.utils import convert_seed_to_source
+from cal.day5.utils import convert_seed_to_source
 
 
 def test_parse_seeds():

@@ -4,9 +4,11 @@ version = "0.1.0"
 description = ""
 authors = ["James Dockeray <2040040+jdockeray@users.noreply.github.com>"]
 readme = "README.md"
+packages = [{ include = "cal", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+
 
 [build-system]
 requires = ["poetry-core"]

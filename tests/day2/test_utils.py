@@ -1,5 +1,5 @@
 import pytest
-from lib.day2.utils import check_round, check_rounds, compare_scores, get_min_cubes, parse_round, total_rounds
+from cal.day2.utils import check_round, check_rounds, compare_scores, get_min_cubes, parse_round, total_rounds
 
 
 @pytest.mark.parametrize("input,expected_result", [

@@ -1,5 +1,5 @@
 import pytest
-from lib.day1.utils import convert, parse_input, first, last
+from cal.day1.utils import convert, parse_input, first, last
 from unittest.mock import mock_open, patch
 from typing import List
 
