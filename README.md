@@ -8,11 +8,6 @@ poetry shell
 poetry install
 ```
 
-```
-### Run a day
-poetry run python lib/day1/main.py
-```
-
 ### Install pre-commit hooks
 Docs here https://pre-commit.com/
 
@@ -37,4 +32,4 @@ fix, feat, chore, docs, style, refactor, perf, test
 1. Day 4 - `map`, `cache` (with notes)
 1. Day 5 - `ranges`, `range splitting` (with notes)
 1. Day 6 - 🚧 not attempted
-1. Day 7 -
+1. Day 7 - `sort`, `logic elimination`
