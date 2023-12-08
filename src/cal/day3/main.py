@@ -11,7 +11,7 @@ if __name__ == "__main__":
         print("""
                 Please provide the input file path as a command line argument:
 
-                poetry run python lib/day3/main.py data/day3/input.txt
+                poetry run python -m cal.day3.main data/day3/input.txt
             """)
         sys.exit(1)
 
