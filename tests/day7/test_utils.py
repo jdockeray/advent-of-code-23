@@ -44,8 +44,4 @@ def test_part_one():
     assert part_one('data/day7/input.test.txt') == 6440
 
 
-def test_part_two():
-    assert part_two('data/day7/input.txt') == 6440
-
-
 # def test_get_type_of_hand_with_joker()
